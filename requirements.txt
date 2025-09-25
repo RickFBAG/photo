@@ -1,0 +1,14 @@
+Pillow==10.4.0
+Flask==3.0.3
+PyYAML==6.0.2
+requests==2.32.3
+feedparser==6.0.11
+# Inky library (only on Pi). Install when running on Pi.
+# inky==1.6.1
+numpy==2.1.2
+Jinja2==3.1.4
+icalendar==5.0.13
+python-dateutil==2.9.0.post0
+selenium==4.25.0
+webdriver-manager==4.0.2
+

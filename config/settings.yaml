@@ -1,0 +1,32 @@
+refresh:
+  interval_seconds: '300'
+layout:
+  enabled_widgets:
+  - agenda
+  - news
+  - market
+theme:
+  background: '#111418'
+  primary: '#E7E7E7'
+  accent: '#FF6B6B'
+  muted: '#8A8F98'
+  font: DejaVuSans.ttf
+data:
+  calendar:
+    ics_url: https://calendar.google.com/calendar/ical/family13030816180983745858%40group.calendar.google.com/private-681ab02d4c8d35215dec5438b2eb06e2/basic.ics
+    lookahead_days: '3'
+    timezone: Europe/Amsterdam
+    clock: 24h
+  news:
+    rss_url: https://feeds.bbci.co.uk/news/rss.xml
+    limit: '5'
+  market:
+    symbol: VWCE.DE
+    provider: yfinance
+server:
+  host: 0.0.0.0
+  port: 8080
+display:
+  mode: html
+  orientation: portrait
+  template: display.html

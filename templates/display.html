@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Display</title>
+</head>
+<body class="screen">
+  <div class="container portrait">
+    <header class="bar">
+      <div class="brand">Board</div>
+      <div class="right">{{ now_str }}</div>
+    </header>
+    <main class="grid">
+      <section class="panel top">
+        <div class="weather">
+          <div class="icon">{{ weather.icon }}</div>
+          <div class="temp">{{ weather.temp }}</div>
+          <div class="meta">{{ weather.cond }} • H {{ weather.hi }} / L {{ weather.lo }}</div>
+        </div>
+        <div class="spark">
+          <svg viewBox="0 0 400 80" preserveAspectRatio="none">
+            <polyline fill="none" stroke="currentColor" stroke-width="3" points="
+              {% set min = market.history|map(attribute=1)|min %}
+              {% set max = market.history|map(attribute=1)|max %}
+              {% for idx, val in market.history %}
+                {% set x = (loop.index0 / (market.history|length - 1)) * 400 %}
+                {% set y = 80 - ((val - min) / (max - min + 0.0001)) * 80 %}
+                {{ x }},{{ y }}
+              {% endfor %}
+            "></polyline>
+          </svg>
+          <div class="ticker">
+            <span class="sym">{{ market.symbol }}</span>
+            <span class="px">{{ market.price }}</span>
+            <span class="chg {{ 'up' if market.change_pct>=0 else 'down' }}">{{ market.change_pct }}%</span>
+          </div>
+        </div>
+      </section>
+      <section class="panel agenda">
+        <h2>Agenda</h2>
+        <ul>
+        {% for e in agenda %}
+          <li><span class="time">{{ e.time }}</span><span class="title">{{ e.title }}</span><span class="loc">{{ e.location }}</span></li>
+        {% endfor %}
+        </ul>
+      </section>
+      <section class="panel news">
+        <h2>News</h2>
+        <ul>
+        {% for h in headlines %}
+          <li>{{ h }}</li>
+        {% endfor %}
+        </ul>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
+
