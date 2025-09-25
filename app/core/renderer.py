@@ -50,6 +50,13 @@ class DisplayRenderer:
         if self._inky is None:
             image.save("preview.png")
             return
+        orientation = (self.config.get("display.orientation", "portrait") or "portrait").lower()
+        if orientation == "portrait":
+            # Rotate to match Inky's hardware expectation (800x480 landscape)
+            image = image.rotate(90, expand=True)
+        # Ensure final size matches display base landscape
+        if image.size != BASE_LANDSCAPE:
+            image = image.resize(BASE_LANDSCAPE)
         self._inky.set_image(image)
         self._inky.show()
 
